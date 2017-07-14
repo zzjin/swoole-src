@@ -25,6 +25,8 @@ env:
 
 before_install:
   - sudo apt-get update
+  - sudo apt-get install aptitude
+  - sudo aptitude search libnghttp2
   - sudo apt-get install libnghttp2-dev
   - echo -n | openssl s_client -connect scan.coverity.com:443 | sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' | sudo tee -a /etc/ssl/certs/ca-
 
