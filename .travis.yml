@@ -40,7 +40,7 @@ before_script:
     - echo -e '\nextension=swoole.so' >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
 
 script:
-    - cd tests && ./start-tests.sh
+    - cd tests && travis_wait ./start-tests.sh
     - exit 0
 
 
