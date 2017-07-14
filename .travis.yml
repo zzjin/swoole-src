@@ -36,7 +36,7 @@ addons:
 
 #Compile
 before_script:
-    - ./travis/compile.sh
+    - phpize && ./configure && make clean && make && make install
     - echo -e '\nextension=swoole.so' >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
 
 script:
