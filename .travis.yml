@@ -22,6 +22,7 @@ env:
     - secure: "Mqg9ifSV0BLv2TIBw/x64aEuB8Y5aPXwXg7xAOq08oPlHBYSBgSYxroJL5PXs0fe7PszZF20bUBinwmEXYQzqgP/40Y1kmq/kfTsDXwTOc9qbAbA1pWvH+Sk1kDP5MLJRPWBCkqctyFd0I0u0SdzT1fgSqirqEz2bMnbAUVpSvo="
 
 before_install:
+  - sudo apt-get install libnghttp2
   - echo -n | openssl s_client -connect scan.coverity.com:443 | sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' | sudo tee -a /etc/ssl/certs/ca-
 
 addons:
@@ -36,12 +37,11 @@ addons:
 
 #Compile
 before_script:
-    - apt-get install libnghttp2
-    - phpize && ./configure --enable-openssl --enable-http2 --enable-async-redis && make clean && make && make install
-    - echo -e '\nextension=swoole.so' >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
+  - phpize && ./configure --enable-openssl --enable-http2 --enable-async-redis && make clean && make && make install
+  - echo -e '\nextension=swoole.so' >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
 
 script:
-    - cd tests && travis_wait ./start-tests.sh
-    - exit 0
+  - cd tests && travis_wait ./start-tests.sh
+  - exit 0
 
 
