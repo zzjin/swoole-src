@@ -36,6 +36,7 @@ addons:
 
 #Compile
 before_script:
+    - apt-get install libnghttp2
     - phpize && ./configure --enable-openssl --enable-http2 --enable-async-redis && make clean && make && make install
     - echo -e '\nextension=swoole.so' >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
 
